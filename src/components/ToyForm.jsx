@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 
-function ToyForm() {
-  const ToyForm = () => {
+function ToyForm({ onAddToy }) {
+  
     const [formData, setFormData] = useState({
       name: "",
       image: "",
       description: "",
       likes: 0
     });
-  };
+  
     const handleSubmit = (event) => {
       event.preventDefault();
-      const newToy = {
-        ...formData, 
-        id: Date.now()
-      };
-      fetch("http://localhost:3001/toys", {
+
+        fetch("http://localhost:3001/toys", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(newToy)
+        body: JSON.stringify(formData)
       })
       .then(r => {
         if (!r.ok) {
@@ -28,8 +25,9 @@ function ToyForm() {
         }
         return r.json();
       })
-      .then(newToy => {
-        addNewToy(newToy);
+      .then(createdToy => {
+        onAddToy(createdToy);
+
         setFormData({
           name: "",
           image: "",

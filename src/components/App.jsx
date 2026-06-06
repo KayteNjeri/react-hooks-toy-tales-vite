@@ -22,7 +22,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
 
   const addNewToy = (newToy) => {
-    setToys(previousToys => [...previousToys, newToy]);
+    setToys((prev) => [...prev, newToy]);
   };
 
   const updateToyLikes = (updatedToy) => {
@@ -40,7 +40,8 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm onAddToy={addNewToy} /> : null}
+      {showForm ? <ToyForm 
+      onAddToy={addNewToy} /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
